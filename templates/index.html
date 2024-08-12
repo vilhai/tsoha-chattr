@@ -5,7 +5,19 @@
 
 <body>
     <h1>chattr</h1>
-    <br>
+    {% if session.user_id %}
+        <p>You are logged in</p>
+        <a href="/logout">Log out</a>
+    {% else %}
+        <a href="/login">Log in</a>
+        <br>
+        <a href="/register">Don't have a account? Register</a>
+        <br>
+
+    {% endif %}
+
     {% for topic in topics %}
+    {{ topic.name }}
+    <br>
     {% endfor %}
 </body>

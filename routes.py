@@ -9,8 +9,8 @@ def index():
     topicslist = topics.get_topics()
     return render_template("index.html", topics=topicslist)
 
-@app.route("topics/<int:topicid>")
-def topics(topicid):
+@app.route("/topic/<int:topicid>")
+def topic(topicid):
     msglist = messages.get_messages(topicid)
     return render_template("topics.html", messages=msglist, topic=topicid)
 
@@ -23,6 +23,11 @@ def login():
         if users.logincheck(un, pw):
             return redirect("/")
         else:
-            return render_template("error.html", message="Incorrect username or password")
+            return render_template("error.html", msg="Incorrect username or password")
         
-    render_template(login.html)
+    return render_template("login.html")
+
+app.route("/logout")
+def logout():
+    users.logout()
+    return redirect("/index")
