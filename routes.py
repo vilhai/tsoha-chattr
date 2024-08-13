@@ -12,7 +12,7 @@ def index():
 @app.route("/topic/<int:topicid>")
 def topic(topicid):
     msglist = messages.get_messages(topicid)
-    return render_template("topics.html", messages=msglist, topic=topicid)
+    return render_template("topic.html", messages=msglist, topic=topicid)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

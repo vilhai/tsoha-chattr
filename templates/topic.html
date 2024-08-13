@@ -16,11 +16,13 @@
         <br>
 
     {% endif %}
-    <h2>Topics</h2>
-    
 
-    {% for topic in topics %}
-        <a href="/topic/{{topic.id}}">{{ topic.name }}</a>
+    {% for msg in messages %}
+
+        {{ msg.userid }}
+        {{ msg.content }}
         <br>
+
     {% endfor %}
+
 </body>

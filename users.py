@@ -1,5 +1,3 @@
-from math import fabs
-
 from sqlalchemy import false
 from db import db
 from sqlalchemy.sql import text
