@@ -27,7 +27,25 @@ def login():
         
     return render_template("login.html")
 
-app.route("/logout")
+@app.route("/logout")
 def logout():
     users.logout()
-    return redirect("/index")
+    return redirect("/")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        un = request.form["username"]
+        pw1 = request.form["password1"]
+        pw2 = request.form["password2"]
+
+        if pw1 != pw2:
+            return render_template("error.html", msg="The passwords differ. Try again.")
+
+        if users.register_user(un, pw1):
+            return redirect("/")
+        else:
+            return render_template("error.html", msg="Couldn't register. The username might be in use already.")
+        
+    return render_template("register.html")

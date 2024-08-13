@@ -8,6 +8,7 @@
     {% if session.user_id %}
         <p>You are logged in</p>
         <a href="/logout">Log out</a>
+        <br>
     {% else %}
         <a href="/login">Log in</a>
         <br>
@@ -15,9 +16,11 @@
         <br>
 
     {% endif %}
+    <h2>Topics</h2>
+    
 
     {% for topic in topics %}
-    {{ topic.name }}
-    <br>
+        {{ topic.name }}
+        <br>
     {% endfor %}
 </body>

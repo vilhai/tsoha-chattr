@@ -1,3 +1,6 @@
+from math import fabs
+
+from sqlalchemy import false
 from db import db
 from sqlalchemy.sql import text
 import werkzeug.security
@@ -15,6 +18,21 @@ def logincheck(un, pw):
             return True
 
     return False
+
+def register_user(un, pw):
+    pw_hash = werkzeug.security.generate_password_hash(pw)
+
+    sql = text("INSERT INTO users (username, password, modstatus) VALUES (:un, :pw, false)")
+
+    try:
+        db.session.execute(sql, {"un":un, "pw":pw_hash})
+        db.session.commit()
+    except:
+        return False
+    
+    return logincheck(un, pw)
+
+
 
 
 def logout():
