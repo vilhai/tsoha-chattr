@@ -12,7 +12,20 @@ def index():
 @app.route("/topic/<int:topicid>")
 def topic(topicid):
     msglist = messages.get_messages(topicid)
-    return render_template("topic.html", messages=msglist, topic=topicid)
+    return render_template("topic.html", messages=msglist, topicid=topicid)
+
+@app.route("/send/<int:topicid>", methods=["GET", "POST"])
+def send(topicid):
+    if request.method == "POST":
+        content = request.form["content"]
+
+        if messages.send_message(topicid, content):
+            return redirect(f"/topic/{topicid}")
+        else:
+            return render_template("error.html", msg="Couldn't send the message. Are you signed in?")
+        
+    
+    
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

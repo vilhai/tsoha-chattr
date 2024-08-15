@@ -25,4 +25,18 @@
 
     {% endfor %}
 
+
+    {% if session.user_id %}
+    <form action="/send/{{topicid}}" method="POST">
+
+        <p>Type a message: </p><input type="text" name="content">
+        <br>
+        <input type="submit" value="Send">
+        <br>
+    </form>
+    {% else %}
+    <p>Log in to send a message</p>
+    {% endif %}
+
+
 </body>
