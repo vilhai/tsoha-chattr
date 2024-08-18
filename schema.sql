@@ -22,3 +22,8 @@ CREATE TABLE likes (
     user_id INTEGER REFERENCES users,
     message_id INTEGER REFERENCES messages
 );
+
+CREATE TABLE favourite_topics (
+    user_id INTEGER REFERENCES users,
+    topic_id INTEGER REFERENCES topics
+);
