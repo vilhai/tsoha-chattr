@@ -1,21 +1,10 @@
 <!DOCTYPE html>
-<head>
-    <title>chattr</title>
-</head>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
 
 <body>
-    <h1>chattr</h1>
-    {% if session.user_id %}
-        <p>You are logged in</p>
-        <a href="/logout">Log out</a>
-        <br>
-    {% else %}
-        <a href="/login">Log in</a>
-        <br>
-        <a href="/register">Don't have a account? Register</a>
-        <br>
-
-    {% endif %}
     <h2>Topics</h2>
     
 
@@ -24,3 +13,5 @@
         <br>
     {% endfor %}
 </body>
+
+{% endblock %}

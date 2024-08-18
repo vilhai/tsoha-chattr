@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<head>
-    <title>chattr</title>
-</head>
+{% extends "layout.html" %}
+{% block title %}Topic{% endblock %}
+
+{% block content %}
 
 <body>
-    <h1>chattr</h1>
-    {% if session.user_id %}
-        <p>You are logged in</p>
-        <a href="/logout">Log out</a>
-        <br>
-    {% else %}
-        <a href="/login">Log in</a>
-        <br>
-        <a href="/register">Don't have a account? Register</a>
-        <br>
 
-    {% endif %}
+    <a href="/">Back to all topics</a>
+    <br>
 
     {% for msg in messages %}
 
-        {{ msg.userid }}
+        {{ msg.username }}:
         {{ msg.content }}
+        <a href="/like/{{ msg.id }}">+</a>
         <br>
 
     {% endfor %}
@@ -40,3 +33,5 @@
 
 
 </body>
+
+{% endblock %}
