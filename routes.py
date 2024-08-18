@@ -1,5 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
+from datetime import datetime
 import users
 import messages
 import topics
@@ -23,6 +24,16 @@ def send(topicid):
             return redirect(f"/topic/{topicid}")
         else:
             return render_template("error.html", msg="Couldn't send the message. Are you signed in?")
+        
+
+@app.route("/like/<int:msgid>")
+def like(msgid):
+
+    if messages.like_message(msgid, ):
+        return redirect(f"/topic/{topicid}")
+    else:
+        return render_template("error.html", msg="Couldn't send the message. Are you signed in?")
+
         
     
     

@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>chattr - {% block title %}{% endblock %}</title>
+<div class="container">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <a class="navbar-brand" href="/">chattr</a>
 
-    <div class="collapse navbar-collapse" id="navbarText">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/">Topics</a>
             </li>
 
             {% if session.user_id %}
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
+
+
 
             {% else %}
                 <li class="nav-item">
@@ -31,9 +39,14 @@
             {% endif %}
 
         </ul>
+
+        {% if session.user_id %}
+        <span class="navbar-text">
+            You are logged in.
+        </span>
+        {% endif %}
+
     </div>
 </nav>
-
-<hr>
 
 {% block content %}{% endblock %}

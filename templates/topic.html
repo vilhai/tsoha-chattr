@@ -4,11 +4,12 @@
 
 {% block content %}
 
-<body>
 
     <a href="/">Back to all topics</a>
     <br>
 
+
+    <ol class></ol>
     {% for msg in messages %}
 
         {{ msg.username }}:
@@ -31,7 +32,5 @@
     <p>Log in to send a message</p>
     {% endif %}
 
-
-</body>
-
+</div>
 {% endblock %}

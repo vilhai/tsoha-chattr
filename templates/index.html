@@ -4,14 +4,14 @@
 
 {% block content %}
 
-<body>
     <h2>Topics</h2>
     
+    <ul class="list-group">
+        {% for topic in topics %}
+            <a href="/topic/{{topic.id}}" class="list-group-item list-group-item-action">{{ topic.name }}</a>
 
-    {% for topic in topics %}
-        <a href="/topic/{{topic.id}}">{{ topic.name }}</a>
-        <br>
-    {% endfor %}
-</body>
+        {% endfor %}
+    </ul>
 
+</div>
 {% endblock %}
