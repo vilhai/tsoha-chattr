@@ -37,35 +37,34 @@ INSTRUCTIONS FOR TRYING THE PROJECT:
 1. Clone this repository from github
 
 2. Create a virtual environment into the folder using:
-´´´
+```
 python3 -m venv venv
 source venv/bin/activate
-´´´
+```
 
 3. Install the requirements with:
-´´´
+```
 pip install < requirements.txt
-´´´
+```
 
 4. Create a file ".env" and set the environmental variables:
-
-´´´
+```
 DATABASE_URL=
 SECRET_KEY=
-´´´
+```
 
 5. Create all the necessary tables by running:
-´´´
+```
 psql < schema.sql
-´´´
+```
 
 6. Add data to the database for testing:
-´´´
+```
 psql < testdata.sql
-´´´
+```
 This will add some topics
 
 7. Now run the project with:
-´´´
+```
 flask run
-´´´
+```
