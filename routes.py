@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 from datetime import datetime
+from flask import session
 import users
 import messages
 import topics
@@ -19,6 +20,9 @@ def topic(topicid):
 def send(topicid):
     if request.method == "POST":
         content = request.form["content"]
+
+        if request.form["csrf_token"] != session["csrf_token"]:
+            abort(403)
 
         if messages.send_message(topicid, content):
             return redirect(f"/topic/{topicid}")

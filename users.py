@@ -2,6 +2,7 @@ from sqlalchemy import false
 from db import db
 from sqlalchemy.sql import text
 import werkzeug.security
+from secrets import token_hex
 from flask import session
 
 def logincheck(un, pw):
@@ -13,6 +14,7 @@ def logincheck(un, pw):
     if userid:
         if werkzeug.security.check_password_hash(userid.password, pw):
             session["user_id"] = userid.id
+            session["csrf_token"] = token_hex(16)
             return True
 
     return False
@@ -35,6 +37,7 @@ def register_user(un, pw):
 
 def logout():
     del session["user_id"]
+    del session["csrf_token"]
 
 def get_userid():
     return session.get("user_id", 0)
