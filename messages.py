@@ -23,3 +23,23 @@ def send_message(topic_id, content):
         return False
     
     return redirect("/")
+
+def like_message(msg_id):
+
+    if users.get_userid() == 0:
+        return False
+
+    sql = text("INSERT INTO likes (user_id, message_id) VALUES (:userid, :msgid)")
+
+    try:
+        db.session.execute(sql, {"msgid":msg_id, "userid":users.get_userid()})
+        db.session.commit()
+    except:
+        return False
+    
+    return redirect("/")
+
+def get_topic_id(msgid):
+    sql = text("SELECT topic_id FROM messages WHERE id = :msg_id")
+    res = db.session.execute(sql, {"msg_id": msgid})
+    return res.fetchone()[0]

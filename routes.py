@@ -33,10 +33,10 @@ def send(topicid):
 @app.route("/like/<int:msgid>")
 def like(msgid):
 
-    if messages.like_message(msgid, ):
-        return redirect(f"/topic/{topicid}")
+    if messages.like_message(msgid):
+        return redirect(f"/topic/{messages.get_topic_id(msgid)}")
     else:
-        return render_template("error.html", msg="Couldn't send the message. Are you signed in?")
+        return render_template("error.html", msg="Couldn't like the message. Are you signed in?")
 
         
     
