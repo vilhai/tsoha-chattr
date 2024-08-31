@@ -17,9 +17,9 @@
         {% if session.user_id %}
 
             {% if msg.id in likes %}
-                <a href="/dislike/{{ msg.id }}">-</a>
+                <a href="/dislike/{{ msg.id }}">-</a> 
             {% else %}
-                <a href="/like/{{ msg.id }}">+</a>
+                <a href="/like/{{ msg.id }}">+</a> 
             {% endif %}
 
         {% else %}
@@ -41,8 +41,9 @@
 
         <p>Type a message: </p><input type="text" name="content">
         <br>
-        <input type="submit" value="Send">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="submit" value="Send">
+
         <br>
     </form>
     {% else %}
