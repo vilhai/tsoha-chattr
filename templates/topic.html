@@ -14,7 +14,22 @@
 
         {{ msg.username }}:
         {{ msg.content }}
-        <a href="/like/{{ msg.id }}">+</a>
+        {% if session.user_id %}
+
+            {% if msg.id in likes %}
+                <a href="/dislike/{{ msg.id }}">-</a>
+            {% else %}
+                <a href="/like/{{ msg.id }}">+</a>
+            {% endif %}
+
+        {% else %}
+
+            <p class="text-muted" style="display:inline">+</p>
+
+        {% endif %}
+
+        {{ like_amounts[msg.id] }}
+
         <br>
 
     {% endfor %}

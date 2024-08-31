@@ -14,7 +14,13 @@ def index():
 @app.route("/topic/<int:topicid>")
 def topic(topicid):
     msglist = messages.get_messages(topicid)
-    return render_template("topic.html", messages=msglist, topicid=topicid)
+    likelist = messages.get_user_likes(topicid)
+    like_amounts = {}
+
+    for i in msglist:
+        like_amounts[i.id] = len(messages.get_msg_likes(i.id))
+
+    return render_template("topic.html", messages=msglist, topicid=topicid, likes=likelist, like_amounts=like_amounts)
 
 @app.route("/send/<int:topicid>", methods=["GET", "POST"])
 def send(topicid):
@@ -38,6 +44,13 @@ def like(msgid):
     else:
         return render_template("error.html", msg="Couldn't like the message. Are you signed in?")
 
+@app.route("/dislike/<int:msgid>")
+def dislike(msgid):
+
+    if messages.dislike_message(msgid):
+        return redirect(f"/topic/{messages.get_topic_id(msgid)}")
+    else:
+        return render_template("error.html", msg="Couldn't dislike the message. Are you signed in?")
         
     
     
