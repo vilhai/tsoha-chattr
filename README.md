@@ -2,13 +2,29 @@ Chattr is a free online platform for chatting about anything you love! Users can
 
 Chattr includes following features:
 
+
+
+!!BECAUSE OF FLY.IO WEBSITE BEING DOWN ON 1.9. THE PROJECT CAN ONLY BE TESTED LOCALLY. INSTRUCTIONS IN THE END OF README!!
+
+
+
 -Multiple chats (topics), that can be added and modified by admins.
 -Users  that have signed in can send and read messages in the chats.
 -Users can create an account and sign in using a password.
 ~~-Users can add a profile picture.~~
--Users can have a admin status, that gives the moderator abilities (removing messages, accounts, etc.)
+-Users can have a admin status, that gives the moderator abilities (removing messages, ~~accounts~~, etc.)
 ~~-There is a search function. Users can search for messages containing a spesific word.~~
 -Users can give likes to messages.
+
+
+
+1.9. UPDATE:
+
+    - Some features missing because of lack of time.
+    - Users can only get admin rights through psql cmd
+    - Admin users can remove messages and create new topics
+    - Users can give a like and remove a like
+    - 
 
 18.8. UPDATE:
 
@@ -62,7 +78,11 @@ psql < schema.sql
 ```
 psql < testdata.sql
 ```
-This will add some topics
+This will add some topics and a admin account:
+name: adminuser1234
+password: 12345678
+
+More topics can be created using the admin account.
 
 7. Now run the project with:
 ```
