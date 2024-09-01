@@ -6,34 +6,39 @@
 
 
     <a href="/">Back to all topics</a>
-    <br>
+    <h2>{{ topicname.name }}</h2>
 
 
-    <ol>
+
+
     {% for msg in messages %}
 
-        {{ msg.username }}:
-        {{ msg.content }}
-        {% if session.user_id %}
 
-            {% if msg.id in likes %}
-                <a href="/dislike/{{ msg.id }}">-</a> 
-            {% else %}
-                <a href="/like/{{ msg.id }}">+</a> 
-            {% endif %}
+            <div class="container-sm py-3 sm-4 border rounded float-left" style="overflow-wrap: break-word;">
 
-        {% else %}
+                {{ msg.username }}:
+                {{ msg.content }}
+                {% if session.user_id %}
 
-            <p class="text-muted" style="display:inline">+</p>
+                    {% if msg.id in likes %}
+                        <a href="/dislike/{{ msg.id }}"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
+                    {% else %}
+                        <a href="/like/{{ msg.id }}"><i class="bi bi-hand-thumbs-up"></i></a> 
+                    {% endif %}
 
-        {% endif %}
+                {% endif %}
 
-        {{ like_amounts[msg.id] }}
+                {{ like_amounts[msg.id] }}
 
-        <br>
+                <br>
+
+            </div>
+
+
+
 
     {% endfor %}
-    </ol>
+
 
 
     {% if session.user_id %}

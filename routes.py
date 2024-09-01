@@ -13,6 +13,8 @@ def index():
 
 @app.route("/topic/<int:topicid>")
 def topic(topicid):
+
+    topicname = topics.get_topic_name(topicid)
     msglist = messages.get_messages(topicid)
     likelist = messages.get_user_likes(topicid)
     like_amounts = {}
@@ -20,7 +22,7 @@ def topic(topicid):
     for i in msglist:
         like_amounts[i.id] = len(messages.get_msg_likes(i.id))
 
-    return render_template("topic.html", messages=msglist, topicid=topicid, likes=likelist, like_amounts=like_amounts)
+    return render_template("topic.html", messages=msglist, topicname=topicname, likes=likelist, like_amounts=like_amounts)
 
 @app.route("/send/<int:topicid>", methods=["GET", "POST"])
 def send(topicid):

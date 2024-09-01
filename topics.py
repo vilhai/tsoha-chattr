@@ -8,3 +8,7 @@ def get_topics():
     res = db.session.execute(sql)
     return res.fetchall()
 
+def get_topic_name(topicid):
+    sql = text("SELECT name FROM topics WHERE id = :topicid")
+    res = db.session.execute(sql, {"topicid":topicid})
+    return res.fetchone()
