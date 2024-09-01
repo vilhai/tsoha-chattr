@@ -60,16 +60,14 @@ def remove_message(msg_id):
 
     if users.get_userid() == 0 or users.get_mod() == 0:
         return False
-    
-    userid = users.get_userid()
 
-    sql = text("DELETE FROM messages WHERE message_id = :msg_id")
+    sql = text("DELETE FROM messages WHERE id = :msg_id")
 
-    try:
-        db.session.execute(sql, {"msg_id":msg_id})
-        db.session.commit()
-    except:
-        return False
+    #try:
+    db.session.execute(sql, {"msg_id":msg_id})
+    db.session.commit()
+    #except:
+    #    return False
     
     return redirect("/")
 

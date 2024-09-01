@@ -61,8 +61,10 @@ def dislike(msgid):
 @app.route("/remove/<int:msgid>")
 def remove(msgid):
 
+    topicid = messages.get_topic_id(msgid)
+
     if messages.remove_message(msgid):
-        return redirect(f"/topic/{messages.get_topic_id(msgid)}")
+        return redirect(f"/topic/{topicid}")
     else:
         return render_template("error.html", msg="Couldn't remove the message. Are you signed in (moderator)?")
 

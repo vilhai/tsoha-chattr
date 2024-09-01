@@ -34,7 +34,7 @@
                 <div class="float-right">{{ like_amounts[msg.id] }}</div>
 
                 {% if session.mod_status %}
-                    <a href="/remove/{{ msg.id }}"></a>
+                    <a href="/remove/{{ msg.id }}">Remove message (Moderator)</a>
                 {% endif %}
 
                 <br>

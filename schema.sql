@@ -20,7 +20,7 @@ CREATE TABLE messages (
 
 CREATE TABLE likes (
     user_id INTEGER REFERENCES users,
-    message_id INTEGER REFERENCES messages
+    message_id INTEGER REFERENCES messages ON DELETE CASCADE
 );
 
 CREATE TABLE favourite_topics (
