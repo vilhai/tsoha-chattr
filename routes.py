@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 from datetime import datetime
-from flask import session
+from flask import session, abort
 import users
 import messages
 import topics
@@ -32,6 +32,9 @@ def send(topicid):
         if request.form["csrf_token"] != session["csrf_token"]:
             abort(403)
 
+        if len(content) < 1 or len(content) > 300:
+            return render_template("error.html", msg="Message must be between 2-300 characters long.")
+
         if messages.send_message(topicid, content):
             return redirect(f"/topic/{topicid}")
         else:
@@ -55,7 +58,13 @@ def dislike(msgid):
         return render_template("error.html", msg="Couldn't dislike the message. Are you signed in?")
         
     
-    
+@app.route("/remove/<int:msgid>")
+def remove(msgid):
+
+    if messages.remove_message(msgid):
+        return redirect(f"/topic/{messages.get_topic_id(msgid)}")
+    else:
+        return render_template("error.html", msg="Couldn't remove the message. Are you signed in (moderator)?")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -66,7 +75,7 @@ def login():
         if users.logincheck(un, pw):
             return redirect("/")
         else:
-            return render_template("error.html", msg="Incorrect username or password")
+            return render_template("login.html", msg="Incorrect username or password")
         
     return render_template("login.html")
 
@@ -78,18 +87,25 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+
     if request.method == "POST":
         un = request.form["username"]
         pw1 = request.form["password1"]
         pw2 = request.form["password2"]
 
         if pw1 != pw2:
-            return render_template("error.html", msg="The passwords differ. Try again.")
+            return render_template("register.html", msg="The passwords differ. Try again.")
+        
+        if len(un) < 2 or len(un) > 20:
+            return render_template("register.html", msg="Username must be 2-20 characters long")
+        
+        if len(pw1) < 8 or len(pw1) > 30:
+            return render_template("register.html", msg="Password must be 8-30 characters long")
 
         if users.register_user(un, pw1):
             return redirect("/")
         else:
-            return render_template("error.html", msg="Couldn't register. The username might be in use already.")
+            return render_template("register.html", msg="Couldn't register. The username might be in use already.")
         
     return render_template("register.html")
 
@@ -100,6 +116,9 @@ def newtopic():
         abort(403)
         
     topicname = request.form["name"]
+
+    if len(topicname) < 2 or len(topicname) > 30:
+       return render_template("error.html", msg="Name must be 2-30 characters long")
 
     if topics.create_topic(topicname):
         return redirect("/")

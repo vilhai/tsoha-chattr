@@ -56,6 +56,13 @@
         {% endif %}
 
     </div>
+    
 </nav>
+
+{% if msg %}
+    <div class="m-2 alert alert-danger" role="alert">
+        <p>{{msg}}</p>
+    </div>
+{% endif%}
 
 {% block content %}{% endblock %}
