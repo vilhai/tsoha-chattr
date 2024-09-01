@@ -4,56 +4,50 @@
 
 {% block content %}
 
-
     <a href="/">Back to all topics</a>
     <h2>{{ topicname.name }}</h2>
 
-
-
-
     {% for msg in messages %}
 
+            <div class="container m-1 col-8 border rounded float-left">
 
-            <div class="container-sm py-3 sm-4 border rounded float-left" style="overflow-wrap: break-word;">
+                <div class="col-8" style="overflow-wrap: break-word;">
 
-                {{ msg.username }}:
-                {{ msg.content }}
+                    <b>{{ msg.username }}: </b>
+                    {{ msg.content }}
+                </div>
+
                 {% if session.user_id %}
 
                     {% if msg.id in likes %}
-                        <a href="/dislike/{{ msg.id }}"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
+                        <div class="float-right"><a href="/dislike/{{ msg.id }}"><i class="bi bi-hand-thumbs-up-fill"></i></a></div>
                     {% else %}
-                        <a href="/like/{{ msg.id }}"><i class="bi bi-hand-thumbs-up"></i></a> 
+                        <div class="float-right"><a href="/like/{{ msg.id }}"><i class="bi bi-hand-thumbs-up"></i></a></div>
                     {% endif %}
 
                 {% endif %}
 
-                {{ like_amounts[msg.id] }}
-
+                <div class="float-right">{{ like_amounts[msg.id] }}</div>
                 <br>
-
             </div>
-
-
-
 
     {% endfor %}
 
+    <div class="container float-right">
+        {% if session.user_id %}
+        <form action="/send/{{topicid}}" method="POST">
 
+            <p>Type a message: </p><input type="text" name="content">
+            <br>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="submit" value="Send">
 
-    {% if session.user_id %}
-    <form action="/send/{{topicid}}" method="POST">
-
-        <p>Type a message: </p><input type="text" name="content">
-        <br>
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <input type="submit" value="Send">
-
-        <br>
-    </form>
-    {% else %}
-    <p>Log in to send a message</p>
-    {% endif %}
+            <br>
+        </form>
+        {% else %}
+            <p>Log in to send a message</p>
+        {% endif %}
+    </div>
 
 </div>
 {% endblock %}

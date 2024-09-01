@@ -7,7 +7,7 @@
 <title>chattr - {% block title %}{% endblock %}</title>
 <div class="container">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
 
     <a class="navbar-brand" href="/">chattr</a>
 
@@ -42,9 +42,17 @@
         </ul>
 
         {% if session.user_id %}
-        <span class="navbar-text">
-            You are logged in.
-        </span>
+            {% if session.mod_status %}
+                <span class="navbar-text">
+                    You are logged in as a moderator.
+                </span>
+            {% else %}
+
+                <span class="navbar-text">
+                    You are logged in.
+                </span>
+            {% endif %}
+
         {% endif %}
 
     </div>

@@ -13,5 +13,21 @@
         {% endfor %}
     </ul>
 
+    {% if session.mod_status %}
+        
+    <div>
+        <form action="/newtopic" method="POST">
+
+            <p>Create a new topic (moderator): </p><input type="text" name="name">
+            <br>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="submit" value="Create">
+
+            <br>
+        </form>
+    </div>
+
+    {% endif %}
+
 </div>
 {% endblock %}

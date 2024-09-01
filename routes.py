@@ -22,7 +22,7 @@ def topic(topicid):
     for i in msglist:
         like_amounts[i.id] = len(messages.get_msg_likes(i.id))
 
-    return render_template("topic.html", messages=msglist, topicname=topicname, likes=likelist, like_amounts=like_amounts)
+    return render_template("topic.html", messages=msglist, topicname=topicname, topicid=topicid, likes=likelist, like_amounts=like_amounts)
 
 @app.route("/send/<int:topicid>", methods=["GET", "POST"])
 def send(topicid):
@@ -92,3 +92,16 @@ def register():
             return render_template("error.html", msg="Couldn't register. The username might be in use already.")
         
     return render_template("register.html")
+
+@app.route("/newtopic", methods=["POST"])
+def newtopic():
+
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
+        
+    topicname = request.form["name"]
+
+    if topics.create_topic(topicname):
+        return redirect("/")
+    else:
+        return render_template("error.html", msg="Name already in use")
